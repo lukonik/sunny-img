@@ -1,6 +1,36 @@
-node_modules
-dist
-.output
-.tanstack
-.DS_Store
+# Dependencies and package-manager caches
+node_modules/
+.pnpm-store/
+
+# Build and framework output
+dist/
+.output/
+.tanstack/
+.vite/
+coverage/
+
+# TypeScript and tooling caches
+*.tsbuildinfo
+.eslintcache
+
+# Local environment files (keep templates in version control)
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.local
+
+# Logs
 *.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Operating-system and editor files
+.DS_Store
+Thumbs.db
+.idea/
+*.swp
+*.swo
+*~
