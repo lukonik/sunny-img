@@ -7,14 +7,22 @@
     "build:library": "pnpm --filter sunny-img build",
     "dev": "pnpm --filter sunny-img build && pnpm --parallel --filter sunny-img --filter docs dev",
     "lint": "eslint . --max-warnings=0",
+    "release": "semantic-release",
     "test": "pnpm --filter sunny-img test",
-    "typecheck": "pnpm --filter sunny-img build && pnpm --filter sunny-img typecheck && pnpm --filter docs typecheck"
+    "typecheck": "pnpm --filter sunny-img build && pnpm --filter sunny-img typecheck && pnpm --filter docs typecheck",
+    "vercel-build": "pnpm run build"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@semantic-release/commit-analyzer": "^13.0.1",
+    "@semantic-release/github": "^12.0.9",
+    "@semantic-release/npm": "^13.1.5",
+    "@semantic-release/release-notes-generator": "^14.1.1",
+    "conventional-changelog-conventionalcommits": "^10.4.0",
     "eslint": "^10.9.0",
     "eslint-plugin-react-hooks": "^7.1.1",
     "globals": "^17.11.0",
+    "semantic-release": "^25.0.9",
     "typescript-eslint": "^8.67.0"
   }
 }
