@@ -1,0 +1,5 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "pnpm --workspace-root run vercel-build",
+  "framework": "tanstack-start"
+}

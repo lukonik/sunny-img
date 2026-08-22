@@ -5,7 +5,13 @@ import tseslint from 'typescript-eslint'
 
 export default tseslint.config(
   {
-    ignores: ['**/dist/**', '**/node_modules/**', 'docs/src/routeTree.gen.ts'],
+    ignores: [
+      '**/.output/**',
+      '**/.vercel/**',
+      '**/dist/**',
+      '**/node_modules/**',
+      'docs/src/routeTree.gen.ts',
+    ],
   },
   eslint.configs.recommended,
   ...tseslint.configs.recommended,
