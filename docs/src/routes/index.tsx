@@ -30,7 +30,7 @@ function Home() {
             className="hero-image"
             height={900}
             priority
-            src="/sunrise.svg"
+            src={`${import.meta.env.BASE_URL}sunrise.svg`}
             width={1200}
           />
           <span className="image-note">native lazy loading · zero layout shift</span>

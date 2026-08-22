@@ -8,6 +8,7 @@ import { routeTree } from './routeTree.gen'
 export function getRouter() {
   const router = createTanStackRouter({
     routeTree,
+    basepath: import.meta.env.BASE_URL,
     defaultErrorComponent: (props) => <PrestigeErrorComponent {...props} />,
     defaultNotFoundComponent: PrestigeNotFoundComponent,
     scrollRestoration: true,

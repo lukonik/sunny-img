@@ -7,7 +7,10 @@ import { tanstackStart } from '@tanstack/react-start/plugin/vite'
 import tailwindcss from '@tailwindcss/vite'
 import viteReact from '@vitejs/plugin-react'
 
+const base = process.env.VITE_BASE_PATH ?? '/'
+
 const config = defineConfig({
+  base,
   plugins: [
     prestige(),
     tsconfigPaths({ projects: ['./tsconfig.json'] }),
