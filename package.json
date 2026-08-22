@@ -1,0 +1,12 @@
+{
+  "name": "sunny-img-workspace",
+  "private": true,
+  "packageManager": "pnpm@11.9.0",
+  "scripts": {
+    "build": "pnpm --filter sunny-img build && pnpm --filter docs build",
+    "build:library": "pnpm --filter sunny-img build",
+    "dev": "pnpm --filter sunny-img build && pnpm --parallel --filter sunny-img --filter docs dev",
+    "test": "pnpm --filter sunny-img test",
+    "typecheck": "pnpm --filter sunny-img build && pnpm --filter sunny-img typecheck && pnpm --filter docs typecheck"
+  }
+}
