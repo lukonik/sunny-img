@@ -8,35 +8,148 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
+import { createFileRoute } from '@tanstack/react-router'
+
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as prestigeDocsGettingStartedRouteImport } from './routes/(prestige)/docs.getting-started'
+import { Route as prestigeDocsIntroductionRouteImport } from './routes/(prestige)/docs.introduction'
+import { Route as prestigeDocsGuidesPlaceholdersRouteImport } from './routes/(prestige)/docs.guides.placeholders'
+import { Route as prestigeDocsGuidesResponsiveImagesRouteImport } from './routes/(prestige)/docs.guides.responsive-images'
+import { Route as prestigeDocsReferenceImagePropsRouteImport } from './routes/(prestige)/docs.reference.image-props'
+
+const prestigeDocsLazyRouteImport = createFileRoute('/(prestige)/docs')()
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const prestigeDocsLazyRoute = prestigeDocsLazyRouteImport
+  .update({
+    id: '/(prestige)/docs',
+    path: '/docs',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+  .lazy(() => import('./routes/(prestige)/docs.lazy').then((d) => d.Route))
+const prestigeDocsGettingStartedRoute = prestigeDocsGettingStartedRouteImport
+  .update({
+    id: '/getting-started',
+    path: '/getting-started',
+    getParentRoute: () => prestigeDocsLazyRoute,
+  } as any)
+  .lazy(() =>
+    import('./routes/(prestige)/docs.getting-started.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+const prestigeDocsIntroductionRoute = prestigeDocsIntroductionRouteImport
+  .update({
+    id: '/introduction',
+    path: '/introduction',
+    getParentRoute: () => prestigeDocsLazyRoute,
+  } as any)
+  .lazy(() =>
+    import('./routes/(prestige)/docs.introduction.lazy').then((d) => d.Route),
+  )
+const prestigeDocsGuidesPlaceholdersRoute =
+  prestigeDocsGuidesPlaceholdersRouteImport
+    .update({
+      id: '/guides/placeholders',
+      path: '/guides/placeholders',
+      getParentRoute: () => prestigeDocsLazyRoute,
+    } as any)
+    .lazy(() =>
+      import('./routes/(prestige)/docs.guides.placeholders.lazy').then(
+        (d) => d.Route,
+      ),
+    )
+const prestigeDocsGuidesResponsiveImagesRoute =
+  prestigeDocsGuidesResponsiveImagesRouteImport
+    .update({
+      id: '/guides/responsive-images',
+      path: '/guides/responsive-images',
+      getParentRoute: () => prestigeDocsLazyRoute,
+    } as any)
+    .lazy(() =>
+      import('./routes/(prestige)/docs.guides.responsive-images.lazy').then(
+        (d) => d.Route,
+      ),
+    )
+const prestigeDocsReferenceImagePropsRoute =
+  prestigeDocsReferenceImagePropsRouteImport
+    .update({
+      id: '/reference/image-props',
+      path: '/reference/image-props',
+      getParentRoute: () => prestigeDocsLazyRoute,
+    } as any)
+    .lazy(() =>
+      import('./routes/(prestige)/docs.reference.image-props.lazy').then(
+        (d) => d.Route,
+      ),
+    )
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/docs': typeof prestigeDocsLazyRouteWithChildren
+  '/docs/getting-started': typeof prestigeDocsGettingStartedRoute
+  '/docs/introduction': typeof prestigeDocsIntroductionRoute
+  '/docs/guides/placeholders': typeof prestigeDocsGuidesPlaceholdersRoute
+  '/docs/guides/responsive-images': typeof prestigeDocsGuidesResponsiveImagesRoute
+  '/docs/reference/image-props': typeof prestigeDocsReferenceImagePropsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/docs': typeof prestigeDocsLazyRouteWithChildren
+  '/docs/getting-started': typeof prestigeDocsGettingStartedRoute
+  '/docs/introduction': typeof prestigeDocsIntroductionRoute
+  '/docs/guides/placeholders': typeof prestigeDocsGuidesPlaceholdersRoute
+  '/docs/guides/responsive-images': typeof prestigeDocsGuidesResponsiveImagesRoute
+  '/docs/reference/image-props': typeof prestigeDocsReferenceImagePropsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/(prestige)/docs': typeof prestigeDocsLazyRouteWithChildren
+  '/(prestige)/docs/getting-started': typeof prestigeDocsGettingStartedRoute
+  '/(prestige)/docs/introduction': typeof prestigeDocsIntroductionRoute
+  '/(prestige)/docs/guides/placeholders': typeof prestigeDocsGuidesPlaceholdersRoute
+  '/(prestige)/docs/guides/responsive-images': typeof prestigeDocsGuidesResponsiveImagesRoute
+  '/(prestige)/docs/reference/image-props': typeof prestigeDocsReferenceImagePropsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/docs'
+    | '/docs/getting-started'
+    | '/docs/introduction'
+    | '/docs/guides/placeholders'
+    | '/docs/guides/responsive-images'
+    | '/docs/reference/image-props'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/docs'
+    | '/docs/getting-started'
+    | '/docs/introduction'
+    | '/docs/guides/placeholders'
+    | '/docs/guides/responsive-images'
+    | '/docs/reference/image-props'
+  id:
+    | '__root__'
+    | '/'
+    | '/(prestige)/docs'
+    | '/(prestige)/docs/getting-started'
+    | '/(prestige)/docs/introduction'
+    | '/(prestige)/docs/guides/placeholders'
+    | '/(prestige)/docs/guides/responsive-images'
+    | '/(prestige)/docs/reference/image-props'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  prestigeDocsLazyRoute: typeof prestigeDocsLazyRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +161,74 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/(prestige)/docs': {
+      id: '/(prestige)/docs'
+      path: '/docs'
+      fullPath: '/docs'
+      preLoaderRoute: typeof prestigeDocsLazyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(prestige)/docs/getting-started': {
+      id: '/(prestige)/docs/getting-started'
+      path: '/getting-started'
+      fullPath: '/docs/getting-started'
+      preLoaderRoute: typeof prestigeDocsGettingStartedRouteImport
+      parentRoute: typeof prestigeDocsLazyRoute
+    }
+    '/(prestige)/docs/introduction': {
+      id: '/(prestige)/docs/introduction'
+      path: '/introduction'
+      fullPath: '/docs/introduction'
+      preLoaderRoute: typeof prestigeDocsIntroductionRouteImport
+      parentRoute: typeof prestigeDocsLazyRoute
+    }
+    '/(prestige)/docs/guides/placeholders': {
+      id: '/(prestige)/docs/guides/placeholders'
+      path: '/guides/placeholders'
+      fullPath: '/docs/guides/placeholders'
+      preLoaderRoute: typeof prestigeDocsGuidesPlaceholdersRouteImport
+      parentRoute: typeof prestigeDocsLazyRoute
+    }
+    '/(prestige)/docs/guides/responsive-images': {
+      id: '/(prestige)/docs/guides/responsive-images'
+      path: '/guides/responsive-images'
+      fullPath: '/docs/guides/responsive-images'
+      preLoaderRoute: typeof prestigeDocsGuidesResponsiveImagesRouteImport
+      parentRoute: typeof prestigeDocsLazyRoute
+    }
+    '/(prestige)/docs/reference/image-props': {
+      id: '/(prestige)/docs/reference/image-props'
+      path: '/reference/image-props'
+      fullPath: '/docs/reference/image-props'
+      preLoaderRoute: typeof prestigeDocsReferenceImagePropsRouteImport
+      parentRoute: typeof prestigeDocsLazyRoute
+    }
   }
 }
 
+interface prestigeDocsLazyRouteChildren {
+  prestigeDocsGettingStartedRoute: typeof prestigeDocsGettingStartedRoute
+  prestigeDocsIntroductionRoute: typeof prestigeDocsIntroductionRoute
+  prestigeDocsGuidesPlaceholdersRoute: typeof prestigeDocsGuidesPlaceholdersRoute
+  prestigeDocsGuidesResponsiveImagesRoute: typeof prestigeDocsGuidesResponsiveImagesRoute
+  prestigeDocsReferenceImagePropsRoute: typeof prestigeDocsReferenceImagePropsRoute
+}
+
+const prestigeDocsLazyRouteChildren: prestigeDocsLazyRouteChildren = {
+  prestigeDocsGettingStartedRoute: prestigeDocsGettingStartedRoute,
+  prestigeDocsIntroductionRoute: prestigeDocsIntroductionRoute,
+  prestigeDocsGuidesPlaceholdersRoute: prestigeDocsGuidesPlaceholdersRoute,
+  prestigeDocsGuidesResponsiveImagesRoute:
+    prestigeDocsGuidesResponsiveImagesRoute,
+  prestigeDocsReferenceImagePropsRoute: prestigeDocsReferenceImagePropsRoute,
+}
+
+const prestigeDocsLazyRouteWithChildren =
+  prestigeDocsLazyRoute._addFileChildren(prestigeDocsLazyRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  prestigeDocsLazyRoute: prestigeDocsLazyRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

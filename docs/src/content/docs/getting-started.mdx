@@ -1,0 +1,64 @@
+---
+title: Getting Started
+description: Install sunny-img and render your first image.
+---
+
+# Getting Started
+
+## Install
+
+```bash
+pnpm add sunny-img
+```
+
+The package supports React 18 and React 19.
+
+## Render an image
+
+Import `Image` and provide an accessible `alt` value, a source URL, and intrinsic dimensions:
+
+```tsx
+import { Image } from 'sunny-img'
+
+export function ProductImage() {
+  return (
+    <Image
+      alt="A ceramic cup on a wooden table"
+      src="/images/cup.jpg"
+      width={1200}
+      height={800}
+    />
+  )
+}
+```
+
+The dimensions reserve the correct aspect ratio while the file loads. They do not prevent you from resizing the image with CSS.
+
+```css
+img[data-sunny-img] {
+  width: 100%;
+  height: auto;
+}
+```
+
+## Loading behavior
+
+Images lazy-load by default. Set `priority` for an important above-the-fold image:
+
+```tsx
+<Image
+  alt="A sunny coast"
+  height={720}
+  priority
+  src="/images/coast.jpg"
+  width={1280}
+/>
+```
+
+Priority images use eager loading and a high fetch priority unless you explicitly override `loading`.
+
+## Next steps
+
+- Learn how to generate responsive candidates in [Responsive Images](/docs/guides/responsive-images).
+- Add a preview while the full image loads with [Placeholders](/docs/guides/placeholders).
+- See every supported option in [Image Props](/docs/reference/image-props).

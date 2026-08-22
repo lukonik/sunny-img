@@ -1,0 +1,63 @@
+---
+title: Responsive Images
+description: Generate srcSet candidates with a custom image CDN loader.
+---
+
+# Responsive Images
+
+A loader turns a source path, width, and optional quality into a URL served by your image CDN.
+
+```tsx
+import { Image, type ImageLoader } from 'sunny-img'
+
+const cloudinaryLoader: ImageLoader = ({ src, width, quality = 75 }) =>
+  `https://res.cloudinary.com/demo/image/fetch/w_${width},q_${quality}/${encodeURIComponent(src)}`
+
+export function ResponsiveHero() {
+  return (
+    <Image
+      alt="A sunlit valley"
+      loader={cloudinaryLoader}
+      quality={80}
+      sizes="(max-width: 768px) 100vw, 50vw"
+      src="https://example.com/valley.jpg"
+      width={1600}
+      height={900}
+    />
+  )
+}
+```
+
+When a loader is present, `sunny-img` generates a `srcSet` and resolves the main `src` through the same loader.
+
+## Candidate widths
+
+With viewport-based `sizes`, the component generates these candidates:
+
+```txt
+320, 480, 640, 750, 828, 1080, 1200, 1600, 1920, 2560
+```
+
+Without a viewport-based `sizes` value, it emits the requested width and a 2× candidate.
+
+:::note
+The loader only builds URLs. Your image service must understand the returned URL and perform the requested transformation.
+:::
+
+## Fill a container
+
+Use `fill` when the parent controls the rendered dimensions:
+
+```tsx
+<div style={{ position: 'relative', aspectRatio: '16 / 9' }}>
+  <Image
+    alt="A field at sunrise"
+    fill
+    sizes="100vw"
+    src="/field.jpg"
+    style={{ objectFit: 'cover' }}
+  />
+</div>
+```
+
+The parent must establish a containing block, usually with `position: relative`.

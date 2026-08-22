@@ -1,0 +1,44 @@
+---
+title: Introduction
+description: A small, framework-agnostic image component for React.
+---
+
+# sunny-img
+
+`sunny-img` is a lightweight React image component inspired by `next/image`. It gives you the browser-facing pieces of a modern image pipeline without coupling your components to a framework or running an optimization server.
+
+Use it in TanStack Start, Vite, Remix, or any other React application.
+
+## What it handles
+
+- Intrinsic layouts with reserved width and height.
+- Fill layouts for responsive containers.
+- Native lazy loading and priority loading.
+- Custom image CDN loaders and generated `srcSet` candidates.
+- Blur placeholders.
+- Image refs and standard `<img>` attributes.
+
+## What it does not handle
+
+`sunny-img` does not transform or optimize image files on a server. When you need resized or reformatted assets, provide a `loader` that builds URLs for your image CDN.
+
+:::tip
+Start with plain image URLs. Add a loader only when your project has an image service that can return transformed variants.
+:::
+
+## Minimal example
+
+```tsx
+import { Image } from 'sunny-img'
+
+export function Hero() {
+  return (
+    <Image
+      alt="Sunlight crossing a mountain ridge"
+      height={800}
+      src="/hero.jpg"
+      width={1200}
+    />
+  )
+}
+```

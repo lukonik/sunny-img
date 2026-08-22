@@ -1,0 +1,51 @@
+---
+title: Image Props
+description: Complete reference for the sunny-img Image component.
+---
+
+# Image Props
+
+`Image` accepts standard image attributes in addition to the options below. The component forwards its ref to the underlying `HTMLImageElement`.
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `alt` | `string` | required | Accessible alternative text. Use an empty string for decorative images. |
+| `src` | `string` | required | Source path or URL passed directly to the image or loader. |
+| `width` | `number` | required unless `fill` | Intrinsic image width. |
+| `height` | `number` | required unless `fill` | Intrinsic image height. |
+| `fill` | `boolean` | `false` | Absolutely positions the image to fill its containing block. |
+| `loader` | `(params) => string` | — | Builds transformed image URLs and enables `srcSet` generation. |
+| `quality` | `number` | — | Forwarded to the loader for service-specific quality control. |
+| `priority` | `boolean` | `false` | Uses eager loading and high fetch priority. |
+| `loading` | `'eager' \| 'lazy'` | derived | Overrides the default loading behavior. |
+| `placeholder` | `'empty' \| 'blur'` | `'empty'` | Enables a blur preview before the full image loads. |
+| `blurDataURL` | `string` | — | Preview URL required by the blur placeholder. |
+| `onLoadingComplete` | `(image) => void` | — | Runs after loading with the underlying image element. |
+
+## Loader parameters
+
+```ts
+interface ImageLoaderParams {
+  src: string
+  width: number
+  quality?: number
+}
+```
+
+## Validation
+
+`Image` throws during rendering in two cases:
+
+- `width` or `height` is missing when `fill` is false.
+- `placeholder="blur"` is used without `blurDataURL`.
+
+## Data attribute
+
+Every rendered image includes `data-sunny-img=""`, which gives you a stable CSS selector:
+
+```css
+img[data-sunny-img] {
+  max-width: 100%;
+  height: auto;
+}
+```
