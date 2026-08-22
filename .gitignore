@@ -5,6 +5,7 @@ node_modules/
 # Build and framework output
 dist/
 .output/
+.vercel/
 .tanstack/
 .vite/
 coverage/
