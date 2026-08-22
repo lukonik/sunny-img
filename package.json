@@ -6,7 +6,15 @@
     "build": "pnpm --filter sunny-img build && pnpm --filter docs build",
     "build:library": "pnpm --filter sunny-img build",
     "dev": "pnpm --filter sunny-img build && pnpm --parallel --filter sunny-img --filter docs dev",
+    "lint": "eslint . --max-warnings=0",
     "test": "pnpm --filter sunny-img test",
     "typecheck": "pnpm --filter sunny-img build && pnpm --filter sunny-img typecheck && pnpm --filter docs typecheck"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.9.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "globals": "^17.11.0",
+    "typescript-eslint": "^8.67.0"
   }
 }
