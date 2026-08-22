@@ -1,0 +1,43 @@
+---
+title: Placeholders
+description: Display a blurred preview while the full image loads.
+---
+
+# Placeholders
+
+Set `placeholder="blur"` and provide a small data URL or preview URL through `blurDataURL`.
+
+```tsx
+<Image
+  alt="A lake reflecting the morning sky"
+  blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQ..."
+  height={800}
+  placeholder="blur"
+  src="/images/lake.jpg"
+  width={1200}
+/>
+```
+
+The preview is centered, enlarged slightly, and blurred until the full image fires its load event.
+
+:::caution
+`blurDataURL` is required when `placeholder` is set to `blur`. The component throws a descriptive error when it is missing.
+:::
+
+## Loading completion
+
+Use `onLoadingComplete` when another part of your interface should react after the full image becomes available:
+
+```tsx
+<Image
+  alt="A trail through yellow grass"
+  height={800}
+  onLoadingComplete={(image) => {
+    console.log(image.naturalWidth, image.naturalHeight)
+  }}
+  src="/images/trail.jpg"
+  width={1200}
+/>
+```
+
+The callback receives the underlying `HTMLImageElement`.

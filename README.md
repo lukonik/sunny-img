@@ -8,6 +8,7 @@ This repository is a pnpm workspace containing:
 - [`sunny-img`](./packages/sunny-img) — the published React library, built with
   [tsdown](https://tsdown.dev/)
 - [`docs`](./docs) — the documentation site, built with
+  [Prestige](https://lukonik.github.io/prestige/docs/introduction) and
   [TanStack Start](https://tanstack.com/start)
 
 ## Development
